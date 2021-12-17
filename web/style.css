@@ -1,0 +1,60 @@
+* {
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  font-family: sans-serif;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.deco {
+  background-color: rgba(64, 224, 208, 0.568);
+  padding: 0.5em;
+  border-radius: 25px;
+  margin: 0 1em;
+  border: solid 1px turquoise;
+}
+
+.red {
+  background-color: rgba(255, 0, 0, 0.568) !important;
+  border: solid 1px red !important;
+}
+header .last-children {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.players__ {
+  background-color: blueviolet;
+  padding: 1em;
+  border-radius: 25px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.players__ * {
+  margin: 0 0.5em;
+}
+
+.players__ div {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(0, 0, 105);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-container {
+  background-color: rgba(128, 128, 128, 0.267);
+}
