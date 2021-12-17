@@ -17,6 +17,11 @@ header {
   border-radius: 25px;
   margin: 0 1em;
   border: solid 1px turquoise;
+  cursor: pointer;
+}
+
+.deco:active {
+  transform: scale(0.9);
 }
 
 .red {
@@ -31,9 +36,10 @@ header .last-children {
 }
 
 .players__ {
-  background-color: blueviolet;
+  background-color: rgba(137, 43, 226, 0.568);
   padding: 1em;
-  border-radius: 25px;
+  border: solid 1px blueviolet;
+  border-radius: 40px;
   color: white;
   display: flex;
   flex-direction: row;
@@ -55,6 +61,29 @@ header .last-children {
   align-items: center;
 }
 
-#game-container {
+.center-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.tiles {
+  width: 30vw;
+  height: 60vh;
+  transform: scale(110%);
+  padding: 0.5em 0;
   background-color: rgba(128, 128, 128, 0.267);
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+.tiles div {
+  width: 100px;
+  height: 90%;
+  background-color: deepskyblue;
+  border-radius: 6px;
 }
