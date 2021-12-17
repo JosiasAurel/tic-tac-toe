@@ -68,7 +68,7 @@ header .last-children {
   margin-top: 5%;
 }
 
-.tiles {
+#tiles {
   width: 30vw;
   height: 60vh;
   transform: scale(110%);
@@ -81,9 +81,12 @@ header .last-children {
   align-items: center;
 }
 
-.tiles div {
+#tiles div {
   width: 100px;
   height: 90%;
   background-color: deepskyblue;
   border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
