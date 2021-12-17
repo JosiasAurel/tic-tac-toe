@@ -51,9 +51,29 @@ function updateGameScreen() {
 }
 
 function clickTile(event, idx) {
-    event.target.style.backgroundColor = "red";
+    event.target.style.backgroundColor = "blue";
 
     let coordinate = positionDictionary[idx].split("");
     gameGrid[coordinate[0]][coordinate[1]] = "X";
+
+    updateGameScreen();
     // console.log(gameGrid);
+}
+
+async function makeRequest({
+    endpoint,
+    method,
+    data
+}) {
+    const response = await fetch(endpoint, {
+        method,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+
+    const data = response.json();
+
+    return data;
 }
