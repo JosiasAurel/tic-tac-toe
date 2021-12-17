@@ -17,11 +17,37 @@ const positionDictionary = {
     8: "22"
 }
 
+function invertDictionary(dictionary) {
+    const inverted = {};
+
+    for (item in dictionary) {
+        inverted[dictionary[item]] = item;
+    }
+
+    return inverted;
+}
+
+let canPlay = true;
+
 const allTiles = document.getElementsByClassName("tile");
 
 // add events to each time
 for (let i = 0; i < allTiles.length; i++) {
     allTiles[i].addEventListener("click", e => clickTile(e, i));
+}
+
+function updateGameScreen() {
+    let reversedPosDict = invertDictionary(positionDictionary);
+
+    gameGrid.forEach((lilgrid, i) => {
+        lilgrid.forEach((slot, j) => {
+            if (slot !== "") {
+                let tileIndex = reversedPosDict[`${i}${j}`];
+                allTiles[tileIndex].innerText = slot;
+            }
+        });
+    });
+    return;
 }
 
 function clickTile(event, idx) {
