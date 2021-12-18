@@ -1,4 +1,6 @@
 
+const SERVICE_URI = "http://localhost:8000" // "https://z90dnq.deta.dev";
+
 var gameGrid = [
     ["", "", ""],
     ["", "", ""],
@@ -58,6 +60,18 @@ function clickTile(event, idx) {
 
     updateGameScreen();
     // console.log(gameGrid);
+    sendGameState();
+}
+
+function sendGameState() {
+    makeRequest({
+        endpoint: `${SERVICE_URI}/push-state`,
+        method: "POST",
+        body: {grid: gameGrid}
+    }).then(res => {
+        console.log(res);
+    });
+    return;
 }
 
 async function makeRequest({
@@ -73,7 +87,7 @@ async function makeRequest({
         body: JSON.stringify(data)
     });
 
-    const data = response.json();
+    const result = await response.json();
 
-    return data;
+    return result;
 }
