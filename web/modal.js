@@ -1,7 +1,8 @@
 const modalEl = document.getElementById("modal");
 
-
 function initiazedSessionScreen(socket) {
+
+    let tOwner = false;
 
     const modalEl = document.getElementById("modal");
 
@@ -17,11 +18,12 @@ function initiazedSessionScreen(socket) {
     //---
     joinGameBtn.addEventListener("click", () => {
         const name = prompt("Enter your player name");
-        const gameId = prompt("Enter the game key");
+        sessId = prompt("Enter the game key");
 
         const reqData = {
             name,
-            gameId
+            gameId: sessId,
+            info: "join"
         };
 
         socket.send(JSON.stringify(reqData));
@@ -31,19 +33,23 @@ function initiazedSessionScreen(socket) {
     createGameBtn.addEventListener("click", () => {
         const playName = prompt("Enter your player name");
         const newSess = {
-            name: playName
+            name: playName,
+            info: "create"
         };
 
         socket.send(JSON.stringify(newSess));
         modalEl.style.display = "none";
+
+        tOwner = true;
     });
 
     // add buttons to game modal
     modalEl.appendChild(joinGameBtn);
     modalEl.appendChild(createGameBtn);
-    return;
+
+    return {tOwner, sessId};
 }
 
 export {
-    initiazedSessionScreen  
+    initiazedSessionScreen 
 };

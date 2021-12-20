@@ -23,8 +23,23 @@ socket.onerror = error => {
 socket.onopen = msg => {
     const connectStateEl = document.getElementById("connect-state");
     connectStateEl.style.backgroundColor = "greenyellow";
-    isConnected = true;
 }
+
+socket.onmessage = msg => {
+    let data = JSON.parse(msg.data);
+
+    if (data.info === "update") {
+        gameGrid = data.grid;
+        updateGameScreen();
+    } else if (data.info === "") {
+
+    }
+    // console.log(msg);
+    console.log(data);
+}
+
+let owner = false;
+let gameId = sessId;
 
 var gameGrid = [
     ["", "", ""],
@@ -47,7 +62,7 @@ const positionDictionary = {
 function invertDictionary(dictionary) {
     const inverted = {};
 
-    for (item in dictionary) {
+    for (let item in dictionary) {
         inverted[dictionary[item]] = item;
     }
 
@@ -64,6 +79,7 @@ for (let i = 0; i < allTiles.length; i++) {
 }
 
 function updateGameScreen() {
+    console.log(positionDictionary);
     let reversedPosDict = invertDictionary(positionDictionary);
 
     gameGrid.forEach((lilgrid, i) => {
@@ -83,20 +99,9 @@ function clickTile(event, idx) {
     let coordinate = positionDictionary[idx].split("");
     gameGrid[coordinate[0]][coordinate[1]] = "X";
 
+    notifyServer();
     updateGameScreen();
     // console.log(gameGrid);
-    sendGameState();
-}
-
-function sendGameState() {
-    makeRequest({
-        endpoint: `${SERVICE_URI}/push-state`,
-        method: "POST",
-        body: {grid: gameGrid}
-    }).then(res => {
-        console.log(res);
-    });
-    return;
 }
 
 async function makeRequest({
@@ -117,6 +122,19 @@ async function makeRequest({
     return result;
 }
 
+function notifyServer() {
+    console.log(gameId);
+    if (owner) {
+        socket.send(JSON.stringify({ info: "update", grid: gameGrid }));
+    } else {
+        const reqData = JSON.stringify({ info: "update", grid: gameGrid, id: sessId })
+        console.log(reqData);
+        socket.send(reqData);
+    }
+}
+
 window.addEventListener("DOMContentLoaded", () => {
-    initiazedSessionScreen(socket);
+    const data = initiazedSessionScreen(socket);
+    owner = data.tOwner;
+    gameId = sessId;
 });
