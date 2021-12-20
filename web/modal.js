@@ -28,6 +28,7 @@ function initiazedSessionScreen(socket) {
             gameId: sessId,
             info: "join"
         };
+        symbol = "O";
 
         document.getElementById("session__").innerText = `Session ID : ${sessId}`;
         socket.send(JSON.stringify(reqData));

@@ -28,17 +28,24 @@ socket.onopen = msg => {
 
 socket.onmessage = msg => {
     let data = JSON.parse(msg.data);
-
     if (data.info === "update") {
+        console.log(data);
         if (data.id === sessId) {
+            document.getElementById("p1").innerText = data.p1;
+            document.getElementById("p2").innerText = data.p2;
             gameGrid = data.grid;
             updateGameScreen();
         }
-    } else if (data.info === "") {
-
+    } else if (data.info === "win") {
+        if (data.id === sessId) {
+            gameGrid = data.grid;
+            updateGameScreen();
+            alert(`Winner is ${data.winner}`);
+            socket.close();
+        }
     }
     // console.log(msg);
-    console.log(data);
+    // console.log(data);
 }
 
 let owner = false;
@@ -97,14 +104,16 @@ function updateGameScreen() {
 }
 
 function clickTile(event, idx) {
-    event.target.style.backgroundColor = "blue";
+    if (event.target.innerText === "") {
+        event.target.style.backgroundColor = "blue";
 
-    let coordinate = positionDictionary[idx].split("");
-    gameGrid[coordinate[0]][coordinate[1]] = "X";
+        let coordinate = positionDictionary[idx].split("");
+        gameGrid[coordinate[0]][coordinate[1]] = symbol;
 
-    notifyServer();
-    updateGameScreen();
-    // console.log(gameGrid);
+        notifyServer();
+        updateGameScreen();
+        // console.log(gameGrid);
+    }
 }
 
 async function makeRequest({
