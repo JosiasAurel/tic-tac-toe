@@ -1,7 +1,31 @@
 
 import { initiazedSessionScreen } from "./modal.js";
 
-const SERVICE_URI = "http://localhost:8000" // "https://z90dnq.deta.dev";
+const SERVICE_URI = "wss://tic-tac-toe-experiment-server.josiasaurel.repl.co";
+
+// establish socket connection
+const socket = new WebSocket(SERVICE_URI);
+
+// handle a connection close
+socket.onclose = _ => {
+    const connectStateEl = document.getElementById("connect-state");
+    connectStateEl.style.backgroundColor = "red";
+    alert("Socket Connection Closed");
+    alert("Disconnected");
+}
+
+socket.onerror = error => {
+    const connectStateEl = document.getElementById("connect-state");
+    connectStateEl.style.backgroundColor = "red";
+    alert(`An error occurred, reason : ${error.message}`);
+}
+
+socket.onopen = msg => {
+    const connectStateEl = document.getElementById("connect-state");
+    connectStateEl.style.backgroundColor = "greenyellow";
+    alert("Connection Established");
+    isConnected = true;
+}
 
 var gameGrid = [
     ["", "", ""],
