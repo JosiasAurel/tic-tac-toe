@@ -1,4 +1,6 @@
 
+import { initiazedSessionScreen } from "./modal.js";
+
 const SERVICE_URI = "http://localhost:8000" // "https://z90dnq.deta.dev";
 
 var gameGrid = [
@@ -91,3 +93,7 @@ async function makeRequest({
 
     return result;
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    initiazedSessionScreen();
+});

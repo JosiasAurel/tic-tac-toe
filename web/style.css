@@ -20,7 +20,8 @@ header {
   cursor: pointer;
 }
 
-.deco:active {
+.deco:active,
+#modal button:active {
   transform: scale(0.9);
 }
 
@@ -89,4 +90,31 @@ header .last-children {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -50vh;
+}
+
+#modal {
+  width: 30vw;
+  height: 30vh;
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#modal button {
+  border: solid transparent;
+  background-color: blueviolet;
+  border-radius: 4px;
+  padding: 0.5em 1em;
+  color: white;
 }
