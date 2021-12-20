@@ -29,6 +29,7 @@ function initiazedSessionScreen(socket) {
             info: "join"
         };
 
+        document.getElementById("session__").innerText = `Session ID : ${sessId}`;
         socket.send(JSON.stringify(reqData));
         modalEl.style.display = "none";
     });
@@ -42,6 +43,7 @@ function initiazedSessionScreen(socket) {
             id: sessionId
         };
         sessId = sessionId;
+        document.getElementById("session__").innerText = `Session ID : ${sessId}`;
         socket.send(JSON.stringify(newSess));
         modalEl.style.display = "none";
 
