@@ -1,6 +1,7 @@
 
 import { initiazedSessionScreen } from "./modal.js";
 
+
 const SERVICE_URI = "wss://tic-tac-toe-experiment-server.josiasaurel.repl.co";
 
 // establish socket connection
@@ -29,8 +30,10 @@ socket.onmessage = msg => {
     let data = JSON.parse(msg.data);
 
     if (data.info === "update") {
-        gameGrid = data.grid;
-        updateGameScreen();
+        if (data.id === sessId) {
+            gameGrid = data.grid;
+            updateGameScreen();
+        }
     } else if (data.info === "") {
 
     }

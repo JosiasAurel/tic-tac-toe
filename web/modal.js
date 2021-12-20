@@ -1,4 +1,7 @@
 const modalEl = document.getElementById("modal");
+import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid/nanoid.js'
+
+console.log(nanoid(5));
 
 function initiazedSessionScreen(socket) {
 
@@ -31,12 +34,14 @@ function initiazedSessionScreen(socket) {
     });
 
     createGameBtn.addEventListener("click", () => {
+        const sessionId = nanoid(5);
         const playName = prompt("Enter your player name");
         const newSess = {
             name: playName,
-            info: "create"
+            info: "create",
+            id: sessionId
         };
-
+        sessId = sessionId;
         socket.send(JSON.stringify(newSess));
         modalEl.style.display = "none";
 
