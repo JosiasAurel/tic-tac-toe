@@ -23,7 +23,6 @@ socket.onerror = error => {
 socket.onopen = msg => {
     const connectStateEl = document.getElementById("connect-state");
     connectStateEl.style.backgroundColor = "greenyellow";
-    alert("Connection Established");
     isConnected = true;
 }
 
@@ -119,5 +118,5 @@ async function makeRequest({
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    initiazedSessionScreen();
+    initiazedSessionScreen(socket);
 });
